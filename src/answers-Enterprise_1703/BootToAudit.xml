@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <servicing>
+        <package action="configure">
+            <assemblyIdentity name="Microsoft-Windows-Foundation-Package" version="10.0.16199.1000" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="" />
+            <selection name="Containers" state="true" />
+            <selection name="Microsoft-Hyper-V-Hypervisor" state="true" />
+            <selection name="Microsoft-Hyper-V-Services" state="true" />
+            <selection name="Microsoft-Hyper-V-Management-Clients" state="true" />
+            <selection name="Microsoft-Hyper-V-Management-PowerShell" state="true" />
+            <selection name="Microsoft-Hyper-V-Tools-All" state="true" />
+            <selection name="Microsoft-Windows-Subsystem-Linux" state="true" />
+            <selection name="Microsoft-Hyper-V-All" state="true" />
+            <selection name="Microsoft-Hyper-V" state="true" />
+        </package>
+    </servicing>
+    <settings pass="windowsPE">
+        <component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <SetupUILanguage>
+                <UILanguage>en-US</UILanguage>
+            </SetupUILanguage>
+            <InputLocale>en-US;uk-UA</InputLocale>
+            <SystemLocale>uk-UA</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>uk-UA</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DiskConfiguration>
+                <WillShowUI>OnError</WillShowUI>
+                <Disk wcm:action="add">
+                    <CreatePartitions>
+                        <CreatePartition wcm:action="add">
+                            <Order>1</Order>
+                            <Size>450</Size>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>2</Order>
+                            <Size>184</Size>
+                            <Type>EFI</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>3</Order>
+                            <Size>16</Size>
+                            <Type>MSR</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Order>4</Order>
+                            <Size>20000</Size>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                        <CreatePartition wcm:action="add">
+                            <Extend>true</Extend>
+                            <Order>5</Order>
+                            <Type>Primary</Type>
+                        </CreatePartition>
+                    </CreatePartitions>
+                    <ModifyPartitions>
+                        <ModifyPartition wcm:action="add">
+                            <Format>NTFS</Format>
+                            <Label>Windows RE tools</Label>
+                            <Order>1</Order>
+                            <PartitionID>1</PartitionID>
+                            <TypeID>de94bba4-06d1-4d40-a16a-bfd50179d6ac</TypeID>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Format>FAT32</Format>
+                            <Label>System</Label>
+                            <Order>2</Order>
+                            <PartitionID>2</PartitionID>
+                        </ModifyPartition>
+                        <ModifyPartition wcm:action="add">
+                            <Order>3</Order>
+                            <PartitionID>4</PartitionID>
+                            <Format>NTFS</Format>
+                            <Label>w10mao</Label>
+                            <Letter>C</Letter>
+                        </ModifyPartition>
+                    </ModifyPartitions>
+                    <DiskID>0</DiskID>
+                    <WillWipeDisk>true</WillWipeDisk>
+                </Disk>
+            </DiskConfiguration>
+            <Display>
+                <ColorDepth>32</ColorDepth>
+                <HorizontalResolution>1280</HorizontalResolution>
+                <VerticalResolution>720</VerticalResolution>
+                <RefreshRate>60</RefreshRate>
+            </Display>
+            <ImageInstall>
+                <OSImage>
+                    <InstallFrom>
+                        <MetaData wcm:action="add">
+                            <Key>/IMAGE/NAME</Key>
+                            <Value>Windows 10 Enterprise Insider Preview</Value>
+                        </MetaData>
+                    </InstallFrom>
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>4</PartitionID>
+                    </InstallTo>
+                    <InstallToAvailablePartition>false</InstallToAvailablePartition>
+                    <WillShowUI>OnError</WillShowUI>
+                </OSImage>
+                <DataImage wcm:action="add">
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>4</PartitionID>
+                    </InstallTo>
+                    <InstallFrom>
+                        <Path>\disk_c.wim</Path>
+                    </InstallFrom>
+                    <Order>1</Order>
+                </DataImage>
+                <DataImage wcm:action="add">
+                    <InstallTo>
+                        <DiskID>0</DiskID>
+                        <PartitionID>5</PartitionID>
+                    </InstallTo>
+                    <InstallFrom>
+                        <Path>\disk_d.wim</Path>
+                    </InstallFrom>
+                    <Order>2</Order>
+                </DataImage>
+            </ImageInstall>
+            <UserData>
+                <ProductKey>
+                    <Key>NPPR9-FWDCX-D2C8J-H872K-2YT43</Key>
+                    <WillShowUI>OnError</WillShowUI>
+                </ProductKey>
+                <AcceptEula>true</AcceptEula>
+                <FullName>ƋБ</FullName>
+                <Organization>ƋБ</Organization>
+            </UserData>
+            <EnableNetwork>true</EnableNetwork>
+        </component>
+    </settings>
+    <settings pass="offlineServicing">
+        <component name="Microsoft-Windows-LUA-Settings" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <EnableLUA>false</EnableLUA>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Reseal>
+                <Mode>Audit</Mode>
+            </Reseal>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <LogonCommands>
+                <AsynchronousCommand wcm:action="add">
+                    <Description>Postinstall script</Description>
+                    <Order>1</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>d:\$install\$software\$scripts-oobe\01_postinstall.cmd</CommandLine>
+                </AsynchronousCommand>
+            </LogonCommands>
+        </component>
+    </settings>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-IE-InternetExplorer" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Home_Page>https://www.tenforums.com/tutorials/id-Installation_Upgrade/</Home_Page>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="catalog://d:/0projects/windows-unattended/src/answers-w10_enterprise_1703/install_windows 10 enterprise.clg" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>
