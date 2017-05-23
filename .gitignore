@@ -34,5 +34,6 @@ fabric.properties
 /.idea/deployment.xml
 
 /temp
+dist/
 *.wim
 *.bak
