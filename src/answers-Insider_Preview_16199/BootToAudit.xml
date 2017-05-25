@@ -220,23 +220,7 @@
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>4</Order>
-                    <Path>msiexec /a d:\$install\ua_berko_install\ua_berko_amd64.msi /quiet /passive /norestart</Path>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>8</Order>
                     <Path>C:\Windows\System32\Sysprep\sysprep /oobe /shutdown /unattend:&quot;d:\$scripts\CopyProfile.xml&quot; /generalize</Path>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>5</Order>
-                    <Path>cup chocolatey -y -pre; refreshenv; cup powershell -y -pre; refreshenv; cinst </Path>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Path>%ChocolateyInstall%\tools\shimgen -o=&quot;..\bin\shimgen.exe&quot; -p=&quot;..\tools\shimgen.exe&quot;  </Path>
-                    <Order>6</Order>
-                </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
-                    <Order>7</Order>
-                    <Path>powershell.exe -command &apos;[Environment]::SetEnvironmentVariable(&quot;Choco&quot;, &quot;%ChocolateyInstall%&quot;, &quot;User&quot;)&apos;</Path>
                 </RunSynchronousCommand>
             </RunSynchronous>
             <RunAsynchronous>
