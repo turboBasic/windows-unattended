@@ -38,9 +38,7 @@ if (Test-path $vhdPath) {
 }
 
 Write-Host @"
-New-VHD -Path $vhdPath -SizeBytes 6GB -Dynamic | Mount-VHD -Passthru |
-    Initialize-Disk -Passthru | New-Partition -AssignDriveLetter -UseMaximumSize |
-    Format-Volume -FileSystem NTFS -Confirm:$false -Force
+New-VHD -Path $vhdPath -SizeBytes 6GB -Dynamic | Mount-VHD -Passthru | Initialize-Disk -Passthru | New-Partition -AssignDriveLetter -UseMaximumSize | Format-Volume -FileSystem NTFS -Confirm:$false -Force
 
 Press any key to continue ...
 "@
@@ -68,7 +66,7 @@ Write-Host @"
 
 Press any key to continue ...
 "@
-$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+#$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
 $paramstring = 'x', '-y', "-o""$Destination""", $config.iso, '*', '-xr!install.wim'
 & 7z.exe $paramstring
