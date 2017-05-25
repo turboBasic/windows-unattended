@@ -1,54 +1,85 @@
-#
-param( $index = "Insider_Preview_16193" )
+param( [string]$configuration = ".\config.json", [string]$iso = "",
+       [string]$wim='', [string]$answer="" )
 
-$vhdPath  = ".\dist\install.vhdx"
+$vhdPath  = "c:\temp\install.vhdx"
 $vhdMount = ".\_vhd"
 $installISO = ".\dist\w10_unattended_install.iso"
 
-$config = @{ 
-  "Insider_Preview_16193" = "d:\Downloads\Windows Deployment\Windows10_InsiderPreview_EnterpriseVL_x64_en-us_16193.iso";  
-  "Insider_Preview_16199" = "D:\ISOs\w10_insider_16199\source.iso"; 
-  "Enterprise_1703" = "D:\ISOs\w10_enterprise_1703\en_windows_10_enterprise_version_1703_updated_march_2017_x64_dvd_10189290.unattended-initial.iso" 
+$config = @{}
+
+$tmp = (.\Parse-JsonFile.ps1 $configuration)
+if($iso) {
+  $config.iso = $iso
+} else {
+  $config.iso = $tmp.iso
+}
+if($answer) {
+  $config.answer = $answer
+} else {
+  $config.answer = $tmp.answer
+}
+if($wim) {
+  $config.wim = $wim
+} else {
+  $config.wim = $tmp.wim
 }
 
-try {
-  $winISO = $config.get_item($index)
-} catch {
-  echo "Configuration $index does not exist"
-  exit
-}
-$answers = ".\src\answers-" + $index
+Write-Output $config
+Write-Host "Press any key to continue ..."
+$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
-$Partition = New-VHD -Path $vhdPath -SizeBytes 6GB -Dynamic | Mount-VHD -Passthru | `
-    Initialize-Disk -Passthru | New-Partition -AssignDriveLetter -UseMaximumSize |  `
-    Format-Volume -FileSystem NTFS -Confirm:$false -Force 
-$Destination = $Partition.DriveLetter.Tostring() + ":\"
-7z.exe x -y -o"($Destination)" $winISO
+If (!(Test-path $config.iso) -or !(Test-path $config.answer)) {
+  Write-Host "Missing information!"
+}
+
+
+if (Test-path $vhdPath) {
+  mv $vhdPath "$vhdPath.bak" -force
+}
+
+Write-Host @"
+New-VHD -Path $vhdPath -SizeBytes 6GB -Dynamic | Mount-VHD -Passthru |
+    Initialize-Disk -Passthru | New-Partition -AssignDriveLetter -UseMaximumSize |
+    Format-Volume -FileSystem NTFS -Confirm:$false -Force
+
+Press any key to continue ...
+"@
+$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+$oldEAP = $ErrorActionPreference
+Try {
+  $ErrorActionPreference = "Stop"
+  $Partition = New-VHD -Path $vhdPath -SizeBytes 6GB -Dynamic | Mount-VHD -Passthru |
+      Initialize-Disk -Passthru | New-Partition -AssignDriveLetter -UseMaximumSize |
+      Format-Volume -FileSystem NTFS -Confirm:$false -Force
+  $Destination = $Partition.DriveLetter.Tostring() + ":\"
+} Catch {
+  Write-Host "Cannot create VHD"
+  $Partition = $null
+} Finally {
+  $ErrorActionPreference = $oldEAP
+}
+if(!$Partition) {
+  Return 1
+}
+
+Write-Host @"
+7z.exe x -y -o\"$Destination\" $config.iso
+
+Press any key to continue ...
+"@
+$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+
+$paramstring = 'x', '-y', "-o""$Destination""", $config.iso, '*', '-xr!install.wim'
+& 7z.exe $paramstring
+cp $config.wim "$Destination\sources"
 
 Dism /Capture-Image /ImageFile:.\dist\disk_c.wim /CaptureDir:.\src\disk_c /Name:WindowsConfigs
 cp .\dist\disk_c.wim $Destination
 Dism /Capture-Image /ImageFile:.\dist\disk_d.wim /CaptureDir:.\src\disk_d /Name:SoftwareInstallation
 cp .\dist\disk_d.wim $Destination
 
-cp $answers\BootToAudit.xml "$Destination\Autounattend.xml"
+cp $config.answer "$Destination\Autounattend.xml"
 
 # Create-ISO $Destination  $installISO
-Dismount-VHD –Path ".\dist\install.vhdx"
-
-
-
-Function Create-ISO ($ISOfolder, $ISOfile) {
-  #Mount-DiskImage  ISO ...
-
-  #$CurrentDir = Split-Path $PSCommandPath
-
-  #$mount_params = @{ImagePath = $ISOfile; PassThru = $true; ErrorAction = "Ignore"}
-  $PathToOscdimg = "C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\amd64\Oscdimg\"
-
-  $BootData = '2#p0,e,b"{0}"#pEF,e,b"{1}"' -f "$ISOfolder\boot\etfsboot.com", "$ISOfolder\efi\Microsoft\boot\efisys.bin"
-  echo $BootData
-  echo @("-bootdata:$BootData",'-u2','-udfver102',"$ISOfolder","$ISOFile")
-  $Proc = Start-Process -FilePath "$PathToOscdimg\oscdimg.exe" -ArgumentList @("-bootdata:$BootData",'-u2','-udfver102',"$ISOfolder","$ISOFile") -PassThru -Wait -NoNewWindow
-}
-
-
+Dismount-VHD -Path $vhdPath
