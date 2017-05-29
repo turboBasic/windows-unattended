@@ -161,15 +161,6 @@
         <component name="Microsoft-Windows-SQMApi" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <CEIPEnabled>0</CEIPEnabled>
         </component>
-        <component name="Networking-MPSSVC-Svc" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-            <FirewallGroups>
-                <FirewallGroup wcm:action="add" wcm:keyValue="RemoteDesktop">
-                    <Active>true</Active>
-                    <Group>Remote Desktop</Group>
-                    <Profile>all</Profile>
-                </FirewallGroup>
-            </FirewallGroups>
-        </component>
         <component name="Microsoft-Windows-TerminalServices-LocalSessionManager" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <fDenyTSConnections>false</fDenyTSConnections>
         </component>
@@ -191,7 +182,7 @@
             <Themes>
                 <WindowColor>Automatic</WindowColor>
                 <ThemeName>ƋБ</ThemeName>
-                <BrandIcon>%programfiles%\bb\penrose-round-black.png</BrandIcon>
+                <BrandIcon>%systemdrive%\Program Files\bb\penrose-round-black.png</BrandIcon>
                 <DesktopBackground>%WINDIR%\web\wallpaper\clouds-sun.jpg</DesktopBackground>
             </Themes>
             <UserAccounts>
@@ -207,21 +198,30 @@
         <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <RunSynchronous>
                 <RunSynchronousCommand wcm:action="add">
-                    <Path>D:\$install\lgpo\enable_execution_policy.cmd</Path>
+                    <Path>d:\$install\lgpo\enable_execution_policy.cmd</Path>
                     <Order>1</Order>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
-                    <Path>powershell -command &quot;Set-ExecutionPolicy RemoteSigned -Force&quot;</Path>
                     <Order>2</Order>
+                    <Path>powershell -command &quot;&amp; { iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex } &quot; </Path>
                 </RunSynchronousCommand>
-                <RunSynchronousCommand wcm:action="add">
+                <!--               <RunSynchronousCommand wcm:action="add">
                     <Order>3</Order>
-                    <Path>powershell -executionpolicy bypass -command &quot;&amp; { iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex }</Path>
+                    <Path>cup chocolatey -y -pre</Path>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>4</Order>
-                    <Path>C:\Windows\System32\Sysprep\sysprep /oobe /shutdown /unattend:&quot;d:\$scripts\CopyProfile.xml&quot; /generalize</Path>
+                    <Path>cup powershell -y -pre</Path>
                 </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>5</Order>
+                    <Path>success %Systemroot%\System32\Sysprep\sysprep /oobe /shutdown /unattend:&quot;d:\$scripts\CopyProfile.xml&quot; /generalize</Path>
+                </RunSynchronousCommand>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>6</Order>
+                    <Path>%Systemroot%\System32\Sysprep\sysprep /audit /reboot /unattend:&quot;d:\$scripts\CopyProfile.xml&quot; /generalize</Path>
+                </RunSynchronousCommand>
+ -->
             </RunSynchronous>
             <RunAsynchronous>
                 <RunAsynchronousCommand wcm:action="add">
@@ -235,6 +235,9 @@
                     <Description>Change Keyboard settings</Description>
                 </RunAsynchronousCommand>
             </RunAsynchronous>
+            <Reseal>
+                <Mode>Audit</Mode>
+            </Reseal>
         </component>
     </settings>
     <settings pass="oobeSystem">
@@ -261,7 +264,7 @@
                 <SupportHours>00:00 - 24:00</SupportHours>
                 <SupportURL>http://127.0.0.1/</SupportURL>
                 <SupportAppURL>https://www.facebook.com/Berkobro/</SupportAppURL>
-                <Logo>%programfiles%\bb\hexagram-OEM.bmp</Logo>
+                <Logo>%SYSTEMDRIVE%\Program files\bb\hexagram-OEM.bmp</Logo>
             </OEMInformation>
             <OOBE>
                 <HideEULAPage>true</HideEULAPage>
@@ -281,7 +284,7 @@
                 <FontSmoothing>ClearType</FontSmoothing>
             </VisualEffects>
             <TaskbarLinks>
-                <Link0>%windir%\system32\SnippingTool.exe</Link0>
+                <Link0>%SystemRoot%\system32\SnippingTool.exe</Link0>
                 <Link1>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe</Link1>
                 <Link2>%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk</Link2>
                 <Link3>%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Notepad++\Notepad++.lnk</Link3>
