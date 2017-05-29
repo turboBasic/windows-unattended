@@ -1,0 +1,3 @@
+21:50:30   run setup.exe
+21:53:18   getting files read for installation done
+            reboot:
