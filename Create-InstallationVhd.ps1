@@ -72,9 +72,8 @@ $paramstring = 'x', '-y', "-o""$Destination""", $config.iso, '*', '-xr!install.w
 & 7z.exe $paramstring
 cp $config.wim "$Destination\sources"
 
-Dism /Capture-Image /ImageFile:.\dist\disk_c.wim /CaptureDir:.\src\disk_c /Name:WindowsConfigs
+.\Create-DataDisks.ps1
 cp .\dist\disk_c.wim $Destination
-Dism /Capture-Image /ImageFile:.\dist\disk_d.wim /CaptureDir:.\src\disk_d /Name:SoftwareInstallation
 cp .\dist\disk_d.wim $Destination
 
 cp $config.answer "$Destination\Autounattend.xml"
