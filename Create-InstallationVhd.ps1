@@ -1,28 +1,25 @@
-param( [string]$configuration = ".\config.json", [string]$iso = "",
-       [string]$wim='', [string]$answer="" )
+﻿PARAM( 
+    [String]$configuration = '.\config.json', 
+    [String]$iso           = '',
+    [String]$wim           = '', 
+    [String]$answer        = '' 
+)
 
-$vhdPath  = "c:\temp\install.vhdx"
-$vhdMount = ".\_vhd"
-$installISO = ".\dist\w10_unattended_install.iso"
+$vhdPath  =   'c:\temp\install.vhdx'
+$vhdMount =   '.\_vhd'
+$installISO = '.\dist\w10_unattended_install.iso'
 
 $config = @{}
 
 $tmp = (.\Parse-JsonFile.ps1 $configuration)
-if($iso) {
-  $config.iso = $iso
-} else {
-  $config.iso = $tmp.iso
-}
-if($answer) {
-  $config.answer = $answer
-} else {
-  $config.answer = $tmp.answer
-}
-if($wim) {
-  $config.wim = $wim
-} else {
-  $config.wim = $tmp.wim
-}
+'iso', 'answer', 'wim' |
+    ForEach-Object { 
+      if((Get-Item "Variable:$_").Value){
+        $config.$_ = (Get-Item "Variable:$_").Value         
+      } else {
+        $config.$_ = $tmp.$_
+      }
+    }
 
 Write-Output $config
 Write-Host "Press any key to continue ..."

@@ -1,34 +1,25 @@
-#iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
-                                                                          
-#%ChocolateyInstall%\tools\shimgen -o="..\bin\shimgen.exe" -p="..\tools\shimgen.exe"  
-#[Environment]::SetEnvironmentVariable("Choco", "%ChocolateyInstall%", "User")
-                      
-#cinst powershell                        -y -pre
-#cinst chocolatey                        -y -pre                                                
-#cinst NuGet.CommandLine                 -y
-#cinst Microsoft-Windows-Subsystem-Linux -y -source windowsfeatures       
-#cinst Microsoft-Hyper-V-All             -y -source windowsFeatures                     
-# cinst bash  --allow-empty-checksums -source cygwin  
-# cinst babun --allow-empty-checksums -y                       
-                                                                          
-cinst 7zip.install       -y             # cinst 7zip.portable -version 16.04 -y                            
+pushd "$env:ChocolateyInstall\tools"
+$params = @( '-o="..\bin\shimgen.exe"', '-p="..\tools\shimgen.exe"' )
+.\shimgen @params  
+popd
+
+
+cinst NuGet.CommandLine                 -y
+inst 7zip.install        -y             # cinst 7zip.portable -version 16.04 -y                            
 cinst registrymanager    -y
 cinst fab                -y
 cinst cmder              -y -pre 
-#cinst jre8               -y
+#cinst jre8              -y
 cinst rapidee            -y --ignore-checksums
 cinst linkshellextension -y --allow-empty-checksums 
-cinst vcredist2005 vcredist2008 vcredist2010 vcredist2012 vcredist2013 vcredist2015 -y
 cinst streams            -y
-# cinst mobaxterm        -y
-# cinst hyper            -y
-                                   
-# cinst docker-for-windows -y -pre        # download Kitematics from https://github.com/docker/kitematic/tags
-# cinst virtualbox virtualbox.extensionpack -y --allow-empty-checksums    
+cinst doublecmd          -y
 
-#cinst notepadplusplus.install --x86 -y       # -ia "/D=$env:ONEDRIVE_HOME\01_portable_apps\NotepadPlusPlus"
+cinst vcredist2005 vcredist2008 vcredist2010 vcredist2012 vcredist2013 vcredist2015 -y
+
+cinst notepadplusplus.install --x86 -y   
 #shim "C:\Program Files (x86)\Notepad++\notepad++.exe" $true npp   # shimgen -o="..\bin\np.exe" -p="%ProgramFiles(x86)%\Notepad++\notepad++.exe"    
-#cinst SublimeText3       -y 
+cinst SublimeText3       -y -pre
 
 #cinst sumatrapdf.install -y 
 #cinst inkscape           -y                
@@ -61,6 +52,6 @@ cinst streams            -y
 
 # cinst wincompose gimp                   -y --allow-empty-checksums 
 # cinst peazip                            -y
-cinst git-credential-manager-for-windows  -y -I
+# cinst git-credential-manager-for-windows  -y -I
 
 cinst ketarin      -y

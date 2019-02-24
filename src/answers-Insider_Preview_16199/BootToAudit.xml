@@ -3,7 +3,7 @@
     <servicing>
         <package action="configure">
             <assemblyIdentity name="Microsoft-Windows-Foundation-Package" version="10.0.16199.1000" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="" />
-            <selection name="Containers" state="true" />
+            <selection name="Containers" state="false" />
             <selection name="Microsoft-Hyper-V-All" state="true" />
             <selection name="Microsoft-Hyper-V" state="true" />
             <selection name="Microsoft-Hyper-V-Hypervisor" state="true" />
@@ -12,7 +12,6 @@
             <selection name="Microsoft-Hyper-V-Tools-All" state="true" />
             <selection name="Microsoft-Hyper-V-Management-Clients" state="true" />
             <selection name="Microsoft-Windows-Subsystem-Linux" state="true" />
-            <selection name="SMB1Protocol" state="false" />
         </package>
     </servicing>
     <settings pass="windowsPE">
@@ -168,6 +167,9 @@
             <UserAuthentication>1</UserAuthentication>
             <SecurityLayer>2</SecurityLayer>
         </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComputerName>hex</ComputerName>
+        </component>
     </settings>
     <settings pass="auditSystem">
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -200,10 +202,12 @@
                 <RunSynchronousCommand wcm:action="add">
                     <Path>d:\$install\lgpo\enable_execution_policy.cmd</Path>
                     <Order>1</Order>
+                    <Description>Enforce Local Group policies: Computer policy: Set_ExecutionPolicy RemoteSigned</Description>
                 </RunSynchronousCommand>
                 <RunSynchronousCommand wcm:action="add">
                     <Order>2</Order>
                     <Path>powershell -command &quot;&amp; { iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex } &quot; </Path>
+                    <Description>Install Chocolatey package manager</Description>
                 </RunSynchronousCommand>
                 <!--               <RunSynchronousCommand wcm:action="add">
                     <Order>3</Order>
@@ -251,6 +255,7 @@
             <Reseal>
                 <Mode>Audit</Mode>
             </Reseal>
+            <DeviceForm>3</DeviceForm>
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <FolderLocations>
@@ -260,7 +265,7 @@
             <OEMInformation>
                 <Manufacturer>Ƌ̲ɛ̲̽ɹ̲̅ʞ̅ǫ̛̃ẉ̈̇ɘ̲̇̇ʦ̈  ƋƦơ̶ƭɧɛ̟ʁɥ̊ø̲̅ø̲̅ð̡̡</Manufacturer>
                 <Model>Quantum BJ-17</Model>
-                <SupportPhone>911</SupportPhone>
+                <SupportPhone>666</SupportPhone>
                 <SupportHours>00:00 - 24:00</SupportHours>
                 <SupportURL>http://127.0.0.1/</SupportURL>
                 <SupportAppURL>https://www.facebook.com/Berkobro/</SupportAppURL>
@@ -271,10 +276,10 @@
                 <ProtectYourPC>3</ProtectYourPC>
                 <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
                 <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
-                <HideWirelessSetupInOOBE>false</HideWirelessSetupInOOBE>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
                 <HideLocalAccountScreen>true</HideLocalAccountScreen>
                 <VMModeOptimizations>
-                    <SkipAdministratorProfileRemoval>true</SkipAdministratorProfileRemoval>
+                    <SkipAdministratorProfileRemoval>false</SkipAdministratorProfileRemoval>
                     <SkipNotifyUILanguageChange>true</SkipNotifyUILanguageChange>
                 </VMModeOptimizations>
             </OOBE>
@@ -293,6 +298,38 @@
             </TaskbarLinks>
             <ShowPowerButtonOnStartScreen>true</ShowPowerButtonOnStartScreen>
             <DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>bgBzAHAAYQBzAHMAMQAhAEEAZABtAGkAbgBpAHMAdAByAGEAdABvAHIAUABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <PlainText>false</PlainText>
+                </AdministratorPassword>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>bQBpAG4AdABtAGkAbgB0AFAAYQBzAHMAdwBvAHIAZAA=</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <Description>other kids</Description>
+                        <Name>kids</Name>
+                        <Group>Users</Group>
+                        <DisplayName>spᴉʞ ƋБ</DisplayName>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <LogonCommands>
+                <AsynchronousCommand wcm:action="add">
+                    <Description>Logs currently installed programs</Description>
+                    <Order>1</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <CommandLine>choco list -lo &gt; %Userprofile%\Desktop\choco.txt</CommandLine>
+                </AsynchronousCommand>
+            </LogonCommands>
+        </component>
+    </settings>
+    <settings pass="generalize">
+        <component name="Microsoft-Windows-PnpSysprep" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <PersistAllDeviceInstalls>true</PersistAllDeviceInstalls>
+            <DoNotCleanUpNonPresentDevices>true</DoNotCleanUpNonPresentDevices>
         </component>
     </settings>
     <cpi:offlineImage cpi:source="wim:d:/isos/w10_insider_16199/install.wim#w10ent64insider" xmlns:cpi="urn:schemas-microsoft-com:cpi" />

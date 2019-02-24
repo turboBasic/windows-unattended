@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="auditUser">
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <RunSynchronous>
+                <RunSynchronousCommand wcm:action="add">
+                    <Order>90</Order>
+                    <Path>cmd /c d:\$scripts\90_reboot2oobe\run.cmd</Path>
+                </RunSynchronousCommand>
+            </RunSynchronous>
+            <Reseal>
+                <Mode>OOBE</Mode>
+            </Reseal>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:d:/isos/w10_insider_16199_short/install.wim#w10ent64insider" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

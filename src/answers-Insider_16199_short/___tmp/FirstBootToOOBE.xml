@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <servicing></servicing>
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <ComputerName>hex</ComputerName>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <InputLocale>en-US</InputLocale>
+            <SystemLocale>uk-UA;en-US</SystemLocale>
+            <UILanguage>en-US</UILanguage>
+            <UserLocale>uk-UA</UserLocale>
+        </component>
+        <component name="Microsoft-Windows-Deployment" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <DeviceForm>3</DeviceForm>
+            <Reseal>
+                <Mode>Audit</Mode>
+            </Reseal>
+        </component>
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <TimeZone>FLE Standard Time</TimeZone>
+            <OEMInformation>
+                <Manufacturer>Ƌ̲ɛ̲̽ɹ̲̅ʞ̅ǫ̛̃ẉ̈̇ɘ̲̇̇ʦ̈  ƋƦơ̶ƭɧɛ̟ʁɥ̊ø̲̅ø̲̅ð̡̡</Manufacturer>
+                <Model>Quantum BJ-17</Model>
+                <SupportPhone>666</SupportPhone>
+                <SupportHours>00:00 - 24:00</SupportHours>
+                <SupportURL>http://127.0.0.1/</SupportURL>
+                <SupportAppURL>https://www.facebook.com/Berkobro/</SupportAppURL>
+                <Logo>%SYSTEMDRIVE%\Program files\bb\hexagram-OEM.bmp</Logo>
+            </OEMInformation>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <ProtectYourPC>3</ProtectYourPC>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <VMModeOptimizations>
+                    <SkipAdministratorProfileRemoval>true</SkipAdministratorProfileRemoval>
+                    <SkipNotifyUILanguageChange>true</SkipNotifyUILanguageChange>
+                </VMModeOptimizations>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+                <SkipUserOOBE>true</SkipUserOOBE>
+                <NetworkLocation>Home</NetworkLocation>
+            </OOBE>
+            <RegisteredOwner>ƋБ</RegisteredOwner>
+            <RegisteredOrganization>ƋБ</RegisteredOrganization>
+            <VisualEffects>
+                <FontSmoothing>ClearType</FontSmoothing>
+            </VisualEffects>
+            <TaskbarLinks>
+                <Link0>%SystemRoot%\system32\SnippingTool.exe</Link0>
+                <Link1>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe</Link1>
+                <Link2></Link2>
+                <Link3></Link3>
+                <Link4></Link4>
+                <Link5></Link5>
+            </TaskbarLinks>
+            <ShowPowerButtonOnStartScreen>true</ShowPowerButtonOnStartScreen>
+            <DisableAutoDaylightTimeSet>false</DisableAutoDaylightTimeSet>
+            <UserAccounts>
+                <AdministratorPassword>
+                    <Value>bgBzAHAAYQBzAHMAMQAhAEEAZABtAGkAbgBpAHMAdAByAGEAdABvAHIAUABhAHMAcwB3AG8AcgBkAA==</Value>
+                    <PlainText>false</PlainText>
+                </AdministratorPassword>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>bgBzAHAAYQBzAHMAMQAhAFAAYQBzAHMAdwBvAHIAZAA=</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <Description>¡ʇnoqɐ ʞuᴉɥʇ uǝʌǝ ʇ,uop</Description>
+                        <Name>mao</Name>
+                        <Group>Administrators</Group>
+                        <DisplayName>oɐɯ ƋБ</DisplayName>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+            <Themes>
+                <ThemeName>ƋБ</ThemeName>
+                <BrandIcon>%systemdrive%\Program Files\bb\penrose-round-black-innershadow.png</BrandIcon>
+                <DesktopBackground>%WINDIR%\web\wallpaper\clouds-sun.jpg</DesktopBackground>
+                <WindowColor>Automatic</WindowColor>
+            </Themes>
+            <FolderLocations>
+                <ProfilesDirectory>D:\Users</ProfilesDirectory>
+            </FolderLocations>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:d:/isos/w10_insider_16199_short/install.wim#w10ent64insider" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

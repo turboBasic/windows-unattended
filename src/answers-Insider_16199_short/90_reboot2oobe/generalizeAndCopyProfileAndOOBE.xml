@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend">
+    <settings pass="specialize">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <CopyProfile>true</CopyProfile>
+        </component>
+    </settings>
+    <settings pass="oobeSystem">
+        <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <FirstLogonCommands>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd /c d:\$scripts\99_testAfterInstall\run.cmd</CommandLine>
+                    <Order>5</Order>
+                    <RequiresUserInput>false</RequiresUserInput>
+                    <Description>DirectX diagnostics</Description>
+                </SynchronousCommand>
+            </FirstLogonCommands>
+            <FolderLocations>
+                <ProfilesDirectory>D:\Users</ProfilesDirectory>
+            </FolderLocations>
+            <OOBE>
+                <HideEULAPage>true</HideEULAPage>
+                <HideLocalAccountScreen>true</HideLocalAccountScreen>
+                <HideOEMRegistrationScreen>true</HideOEMRegistrationScreen>
+                <HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+                <HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+                <NetworkLocation>Home</NetworkLocation>
+                <SkipMachineOOBE>true</SkipMachineOOBE>
+                <SkipUserOOBE>true</SkipUserOOBE>
+                <UnattendEnableRetailDemo>false</UnattendEnableRetailDemo>
+            </OOBE>
+            <TaskbarLinks>
+                <Link0>%SystemRoot%\system32\SnippingTool.exe</Link0>
+                <Link1>%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe</Link1>
+                <Link2>%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk</Link2>
+                <Link3>%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Notepad++\Notepad++.lnk</Link3>
+                <Link4>%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Cmder.lnk</Link4>
+            </TaskbarLinks>
+            <Themes>
+                <BrandIcon>%ProgramFiles%\bb\penrose-round-black-innershadow.png</BrandIcon>
+                <DefaultThemesOff>false</DefaultThemesOff>
+                <DesktopBackground>%SystemRoot%\web\wallpaper\clouds-sun.jpg</DesktopBackground>
+                <ThemeName>ƋБ</ThemeName>
+                <WindowColor>Automatic</WindowColor>
+            </Themes>
+            <UserAccounts>
+                <LocalAccounts>
+                    <LocalAccount wcm:action="add">
+                        <Password>
+                            <Value>bQBpAG4AdABtAGkAbgB0AFAAYQBzAHMAdwBvAHIAZAA=</Value>
+                            <PlainText>false</PlainText>
+                        </Password>
+                        <Group>Users</Group>
+                        <Name>kids</Name>
+                        <DisplayName>spᴉʞ ƋБ</DisplayName>
+                        <Description>spᴉʞ ƋБ</Description>
+                    </LocalAccount>
+                </LocalAccounts>
+            </UserAccounts>
+        </component>
+    </settings>
+    <cpi:offlineImage cpi:source="wim:d:/isos/w10_insider_16199_short/install.wim#w10ent64insider" xmlns:cpi="urn:schemas-microsoft-com:cpi" />
+</unattend>

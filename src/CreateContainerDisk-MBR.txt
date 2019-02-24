@@ -1,0 +1,18 @@
+rem diskpart script for creation of disk-container of bootable VHDs
+rem
+select disk 0
+clean
+rem
+rem == 1. System partition ======================
+rem
+create partition primary size=200
+format quick fs=ntfs label="System"
+assign letter="S"
+active
+rem
+rem == 2. Main partition ========================
+rem
+create partition primary
+format quick fs=ntfs label="VHD_Container"
+assign letter="M"
+exit

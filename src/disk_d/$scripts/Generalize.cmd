@@ -1,1 +1,0 @@
-C:\Windows\System32\Sysprep\sysprep /oobe /shutdown /unattend:"d:\$scripts\CopyProfile.xml" /generalize

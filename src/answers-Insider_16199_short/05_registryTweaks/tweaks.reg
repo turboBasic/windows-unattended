@@ -1,0 +1,29 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"MenuShowDelay"="2"
+
+[HKEY_CURRENT_USER\Control Panel\International]
+"sDecimal"="."
+"sMonDecimalSep"="."
+
+[HKEY_CURRENT_USER\Keyboard Layout\Toggle]
+"HotKey"="2"
+"Language HotKey"="2"
+"Layout HotKey"="3"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Console\TrueTypeFont]
+"00000"="InputMono"
+"00001"="InputMonoNarrow"
+"00002"="InputMonoCondensed"
+"00003"="InputMonoCondensed"
+"00004"="Fira Code"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation]
+"Logo"          ="%SYSTEMDRIVE%\Program files\bb\hexagram-OEM.bmp"
+"Manufacturer"  ="Ƌ̲ɛ̲̽ɹ̲̅ʞ̅ǫ̛̃ẉ̈̇ɘ̲̇̇ʦ̈ ƋƦơ̶ƭɧɛ̟ʁɥ̊ø̲̅ø̲̅ð̡̡"
+"Model"         ="Quantum BJ-17"
+"SupportHours"  ="00:00 - 24:00"
+"SupportPhone"  ="666"
+"SupportAppUrl" ="http://tiny.cc/bb88"
+"SupportURL"    ="http://127.0.0.1/"

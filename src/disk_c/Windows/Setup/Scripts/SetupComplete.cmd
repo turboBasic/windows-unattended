@@ -1,0 +1,1 @@
+rem runs immediately after the user sees the desktop
